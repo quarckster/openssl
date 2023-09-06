@@ -1,0 +1,14 @@
+pr:
+  - master
+trigger:
+  - master
+
+jobs:
+  - job: Linux
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+      - script: git submodule update --init --depth 1 fuzz/corpora
+      - script: ./config --banner=Configured no-asm no-makedepend enable-buildtest-c++ enable-fips --strict-warnings -D_DEFAULT_SOURCE && perl configdata.pm --dump
+      - script: make -s -j4
+      - script: make test HARNESS_JOBS=${HARNESS_JOBS:-4}
