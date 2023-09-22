@@ -92,17 +92,33 @@ jobs:
   #   - name: make test
   #     run: make test HARNESS_JOBS=${HARNESS_JOBS:-4}
 
-  linux-arm64:
-    strategy:
-      fail-fast: false
-      matrix:
-        zoo:
+  bsd:
+    runs-on: freebsd
+    name: A job to run test in FreeBSD
+    steps:
+    - uses: actions/checkout@v4
+    - name: checkout fuzz/corpora submodule
+      run: git submodule update --init --depth 1 fuzz/corpora
+    - name: config
+      run: ./config
+    - name: config dump
+      run: ./configdata.pm --dump
+    - name: make
+      run: make -j4
+    - name: make test
+      run: make test HARNESS_JOBS=${HARNESS_JOBS:-4}
+
+        # linux-arm64:
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       zoo:
           # - image: docker.io/library/debian:10
           #   install: apt-get update && apt-get install -y gcc make perl
           # - image: docker.io/library/debian:11
           #   install: apt-get update && apt-get install -y gcc make perl
-          - image: docker.io/library/debian:12
-            install: apt-get update && apt-get install -y gcc make perl
+          # - image: docker.io/library/debian:12
+          #   install: apt-get update && apt-get install -y gcc make perl
           # - image: docker.io/library/ubuntu:20.04
           #   install: apt-get update && apt-get install -y gcc make perl
           # - image: docker.io/library/ubuntu:22.04
@@ -120,20 +136,20 @@ jobs:
           #   install: dnf install -y gcc make perl-core
           # - image: docker.io/library/rockylinux:9
           #   install: dnf install -y gcc make perl-core
-    runs-on: buildjet-2vcpu-ubuntu-2204-arm
-    container: ${{ matrix.zoo.image }}
-    steps:
-    - uses: actions/checkout@v4
-    - name: install packages
-      run: ${{ matrix.zoo.install }}
-    - name: config
-      run: ./config
-    - name: config dump
-      run: ./configdata.pm --dump
-    - name: make
-      run: make -j4
-    - name: make test
-      run: make test HARNESS_JOBS=${HARNESS_JOBS:-4}
+    # runs-on: buildjet-2vcpu-ubuntu-2204-arm
+    # container: ${{ matrix.zoo.image }}
+    # steps:
+    # - uses: actions/checkout@v4
+    # - name: install packages
+    #   run: ${{ matrix.zoo.install }}
+    # - name: config
+    #   run: ./config
+    # - name: config dump
+    #   run: ./configdata.pm --dump
+    # - name: make
+    #   run: make -j4
+    # - name: make test
+    #   run: make test HARNESS_JOBS=${HARNESS_JOBS:-4}
 
   # macos:
   #   strategy:
