@@ -20,6 +20,10 @@ OpenSSL Releases
 OpenSSL 3.2
 -----------
 
+### Major changes between OpenSSL 3.2.4 and OpenSSL 3.2.5 [under development]
+
+  * none
+
 ### Major changes between OpenSSL 3.2.3 and OpenSSL 3.2.4 [23 Oct 2024]
 
   * none
