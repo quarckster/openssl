@@ -25,7 +25,11 @@ OpenSSL Releases
 OpenSSL 3.2
 -----------
 
-### Changes between 3.2.3 and 3.2.4 [xx XXX xxxx]
+### Changes between 3.2.4 and 3.2.5 [xx XXX xxxx]
+
+ * none yet
+
+### Changes between 3.2.3 and 3.2.4 [31 Oct 2024]
 
  * Fixed possible OOB memory access with invalid low-level GF(2^m) elliptic
    curve parameters.
