@@ -28,6 +28,10 @@ OpenSSL Releases
 OpenSSL 3.5
 -----------
 
+### Changes between 3.5 and 3.6 [xx XXX xxxx]
+
+ * none yet
+
 ### Changes between 3.4 and 3.5 [xx XXX xxxx]
 
 * Support DEFAULT keyword and '-' prefix in SSL_CTX_set1_groups_list().
