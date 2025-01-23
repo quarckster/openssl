@@ -24,7 +24,7 @@ jobs:
         path: ${{ github.ref_name }}
     - name: "Prepare assets"
       run: |
-        cd ${{ github.ref_name }}
+        cd ${{ github.workspace }}/${{ github.ref_name }}
         ./util/mktar.sh
         mkdir assets && mv ${{ github.ref_name }}.tar.gz assets/ && cd assets
         openssl sha1 < ${{ github.ref_name }}.tar.gz | cut -d " " -f 2 > ${{ github.ref_name }}.tar.gz.sha1
@@ -33,6 +33,6 @@ jobs:
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
-        cd ${{ github.ref_name }}
+        cd ${{ github.workspace }}/${{ github.ref_name }}
         VERSION=$(echo ${{ github.ref_name }} | cut -d "-" -f 2-)
         gh release create ${{ github.ref_name }} -t "OpenSSL $VERSION" -d --notes " " -R ${{ github.repository }} ${{ github.ref_name }}/assets/*
